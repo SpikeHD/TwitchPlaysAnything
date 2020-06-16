@@ -1,0 +1,13 @@
+{
+  "twitch_channel":"spikegd",
+  "keys":{
+    "attack":"a",
+    "defend":"b",
+    "up":"up",
+    "down":"down",
+    "left":"left",
+    "right":"right",
+    "jump":"space",
+    "doublejump":"space+space"
+  }
+}

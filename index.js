@@ -50,7 +50,7 @@ client.on('message', (channel, tags, message) => {
 
     asyncForEach(movements, async (p, i) => {
       const pos = parseMouse(movements[i])
-      var curPos = robot.getMousePos()
+      const curPos = robot.getMousePos()
       debug.log(`Moving mouse to ${curPos.x+pos.x}, ${curPos.y+pos.y} (${i+1}/${movements.length})`)
       await robot.moveMouse(curPos.x+pos.x, curPos.y-pos.y)
       await waitFor(50)
@@ -68,8 +68,8 @@ async function asyncForEach(arr, callback) {
 }
 
 function parseTime(t) {
-  var num = parseInt(t.match(/^[-+]?\d+$/g))
-  var unit = t.split(num)[1]
+  const num = parseInt(t.match(/^[-+]?\d+$/g))
+  const unit = t.split(num)[1]
 
   switch(unit) {
     default:
@@ -81,8 +81,8 @@ function parseTime(t) {
 }
 
 function parseMouse(m) {
-  var x = parseInt(m.split(',')[0].match(/^[-+]?\d+/g))
-  var y = parseInt(m.split(',')[1].match(/^[-+]?\d+/g))
+  const x = parseInt(m.split(',')[0].match(/^[-+]?\d+/g))
+  const y = parseInt(m.split(',')[1].match(/^[-+]?\d+/g))
 
   return {
     x:x,

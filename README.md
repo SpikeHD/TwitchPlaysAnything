@@ -32,7 +32,7 @@ Examples:
 ```
 
 ### keyHolds
-Works the exact same as `keys`, except you can apply a time for the key to be held.
+Works the exact same as `keys`, except you can apply a time for the key to be held (or for it to be toggled on/off).
 
 Examples:
 ```js
@@ -42,6 +42,14 @@ Examples:
 ```js
 "alldirections":"w+a+s+d:50ms"
 // Will press each key for 50ms when someone sends "alldirections"
+```
+```js
+"enableforward":"w:on"
+// Holds w when someone sends "enableforward"
+```
+```js
+"disableforward":"w:off"
+// Lets go of w when someone sends "disableforward"
 ```
 ### mouse
 Allows for the movement of the mouse. Uses x/y coordinate *offsets*, which means you aren't inputting a position, but where it should move from it's current position. You can also string movements together with `+`
@@ -68,7 +76,22 @@ Examples:
 "double":"left+left"
 // Double clicks when someone sends "double"
 ```
+### clickHolds
+Basically the exact same as key holds. Allows for holding down a mouse button for an amount of time (or a toggle)
 
+Examples:
+```js
+"magdump":"left:5s"
+// Will hold down left mouse button for 5 seconds when someone sends "magdump"
+```
+```js
+"enablelmb":"left:on"
+// Toggles left mouse button when someone sends "enablelmb"
+```
+```js
+"disablelmb":"left:off"
+// Disables left mouse button when someone sends "disablelmb"
+```
 ### debug
 Having trouble with something? Enabling this will show each chat message, and what key is being pressed
 

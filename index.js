@@ -6,6 +6,7 @@
  * point for myself too.
  */
 const config = require('./config.json')
+const debug = require('./debug')
 const robot = require('robotjs')
 const tmi = require('tmi.js')
 const client = new tmi.Client({
@@ -19,17 +20,19 @@ const client = new tmi.Client({
 client.connect()
 
 client.on('message', (channel, tags, message) => {
+  debug.log(`${tags.username}: ${message}`)
   if(config.keys[message.toLowerCase()]) {
     const m = message.toLowerCase()
     const keys = config.keys[m].split('+')
-    asyncForEach(keys, async k => {
+    asyncForEach(keys, async (k, i) => {
       await robot.keyTap(k)
+      debug.log(`Pressed ${k} (${i+1}/${keys.length})`)
     })
   }
 })
 
 async function asyncForEach(arr, callback) {
   for (var i = 0; i < arr.length; i++) {
-    await callback(arr[i], i, arr)
+    await callback(arr[i], i)
   }
 }

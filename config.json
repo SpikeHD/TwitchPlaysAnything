@@ -9,5 +9,6 @@
     "right":"right",
     "jump":"space",
     "doublejump":"space+space"
-  }
+  },
+  "debug":true
 }

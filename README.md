@@ -43,6 +43,32 @@ Examples:
 "alldirections":"w+a+s+d:50ms"
 // Will press each key for 50ms when someone sends "alldirections"
 ```
+### mouse
+Allows for the movement of the mouse. Uses x/y coordinate *offsets*, which means you aren't inputting a position, but where it should move from it's current position. You can also string movements together with `+`
+
+Examples:
+```js
+"aimup":"0px,200px"
+// Moves the mouse 200px up from it's current position when someone sends "aimup"
+```
+```js
+"leftright":"-100px,0px+100px,0px"
+// Moves the mouse left 100px then right 100px when someone sends "leftright"
+```
+
+### click
+Clicks the mouse buttons (either left or right). Can be strung together with `+` as well
+
+Examples:
+```js
+"shoot":"left"
+// Clicks the left mouse button once when someone sends "shoot"
+```
+```js
+"double":"left+left"
+// Double clicks when someone sends "double"
+```
+
 ### debug
 Having trouble with something? Enabling this will show each chat message, and what key is being pressed
 

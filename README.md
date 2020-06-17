@@ -13,6 +13,8 @@ To start up the program, just run "start.bat". If you make any configuration cha
 # Configuration
 All of the base configuration is located in "config.json". In the `configs` folder you will find some basic key configuration files you can use (or edit using the reference below) by changing the `use_config` field to the name of the config file.
 
+Feel free to create your own key configurations! If you made one that you think could be useful, feel free to make a pull request with it.
+
 ### channel
 Set this as the name of the Twitch channel to watch the chat of.
 

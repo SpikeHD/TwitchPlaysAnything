@@ -11,7 +11,7 @@ A twitch-plays style program with extended functionality allowing for usage in a
 To start up the program, just run "start.bat". If you make any configuration changes, you have to restart the program.
 
 # Configuration
-All of the base configuration is located in "config.json". In the `configs` folder you will find some basic config files you can use (or edit using the reference below) by changing the `use_config` field to the name of the config file.
+All of the base configuration is located in "config.json". In the `configs` folder you will find some basic key configuration files you can use (or edit using the reference below) by changing the `use_config` field to the name of the config file.
 
 ### channel
 Set this as the name of the Twitch channel to watch the chat of.

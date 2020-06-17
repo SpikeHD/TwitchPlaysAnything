@@ -102,7 +102,7 @@ function parseTime(t) {
   const isInfinite = t === 'on' || t === 'off'
 
   if(!isInfinite) {
-    const num = parseInt(t.match(/^[-+]?\d+$/g))
+    const num = parseInt(t.match(/^[-+]?\d+/g))
     const unit = t.split(num)[1]
   
     switch(unit) {

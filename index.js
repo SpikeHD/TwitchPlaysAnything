@@ -5,7 +5,8 @@
  * I just want to say that I made my own, and maybe I can use it at some
  * point for myself too.
  */
-const config = require('./config.json')
+const globalconfig = require('./config.json')
+const keyconf = require(`./configs/${globalconfig.use_config}.json`)
 const debug = require('./debug')
 const robot = require('robotjs')
 const tmi = require('tmi.js')
@@ -14,8 +15,10 @@ const client = new tmi.Client({
     reconnect: true,
     secure: true
   },
-  channels: [config.twitch_channel]
+  channels: [globalconfig.twitch_channel]
 })
+
+console.log(`Using config: ${globalconfig.use_config}`)
 
 client.connect()
 
@@ -23,18 +26,18 @@ client.on('message', (channel, tags, message) => {
   debug.log(`${tags.username}: ${message}`)
   const m = message.toLowerCase()
   // Get corresponding key
-  if(config.keys[m]) {
+  if(keyconf.keys[m] || parseInt(m)) {
     // Get each key in sequence
-    const keys = config.keys[m].split('+')
+    const keys = parseInt(m) && keyconf.enable_num ? [parseInt(m)]:keyconf.keys[m].split('+')
     // Press keys sequencially
     asyncForEach(keys, async (k, i) => {
       await robot.keyTap(k)
       debug.log(`Pressed ${k} (${i+1}/${keys.length})`)
     })
-  } else if(config.keyHolds[m]) {
+  } else if(keyconf.keyHolds[m]) {
     // Parse time into ms
-    const time = parseTime(config.keyHolds[m].split(':')[1])
-    const keys = config.keyHolds[m].split(':')[0].split('+')
+    const time = parseTime(keyconf.keyHolds[m].split(':')[1])
+    const keys = keyconf.keyHolds[m].split(':')[0].split('+')
 
     // Hold down keys
     asyncForEach(keys, async (k, i) => {
@@ -50,8 +53,8 @@ client.on('message', (channel, tags, message) => {
         debug.log(`Turning ${k} ${time} (${i+1}/${keys.length})`)
       }
     })
-  } else if(config.mouse[m]) {
-    const movements = config.mouse[m].split(':')[0].split('+')
+  } else if(keyconf.mouse[m]) {
+    const movements = keyconf.mouse[m].split(':')[0].split('+')
 
     asyncForEach(movements, async (p, i) => {
       // Get x/y offsets
@@ -64,24 +67,24 @@ client.on('message', (channel, tags, message) => {
       await waitFor(50)
       debug.log(`Done moving mouse!`)
     })
-  } else if(config.click[m]) {
-    const clicks = config.click[m].split('+')
+  } else if(keyconf.click[m]) {
+    const clicks = keyconf.click[m].split('+')
 
     asyncForEach(clicks, async (c, i) => {
       await robot.mouseClick(c)
       debug.log(`Clicked ${c} mouse button (${i+1}/${clicks.length})`)
     })
-  } else if(config.clickHolds[m]) {
-    const time = parseTime(config.clickHolds[m].split(':')[1])
-    const clicks = config.clickHolds[m].split(':')[0].split('+')
+  } else if(keyconf.clickHolds[m]) {
+    const time = parseTime(keyconf.clickHolds[m].split(':')[1])
+    const clicks = keyconf.clickHolds[m].split(':')[0].split('+')
 
     asyncForEach(clicks, async (c, i) => {
       if(parseInt(time)) {
         await robot.mouseToggle('down', c)
-        debug.log(`Holding down ${c} mouse button (${i+1}/${keys.length})`)
+        debug.log(`Holding down ${c} mouse button (${i+1}/${clicks.length})`)
         await waitFor(time)
         await robot.mouseToggle('up', c)
-        debug.log(`Let go of ${c} mouse button (${i+1}/${keys.length})`)
+        debug.log(`Let go of ${c} mouse button (${i+1}/${clicks.length})`)
       } else {
         debug.log(`Turning ${c} mouse button ${time} (${i+1}/${clicks.length})`)
         await robot.mouseToggle(time === 'on' ? 'down':'up', c)

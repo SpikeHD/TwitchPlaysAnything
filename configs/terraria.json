@@ -1,0 +1,23 @@
+{
+  "enable_num":true,
+  "keys":{
+    "jump":"space",
+    "down":"s"
+  },
+  "keyHolds":{
+    "right":"d:2s",
+    "left":"a:2s",
+    "up":"w:2s"
+  },
+  "mouse":{
+    "mouseup":"0px,50px",
+    "mousedown":"0px,-50px",
+    "mouseleft":"-50px,0px",
+    "mouseright":"50px,0px"
+  },
+  "click":{},
+  "clickHolds":{
+    "attack":"left:100ms",
+    "place":"right:100ms"
+  }
+}

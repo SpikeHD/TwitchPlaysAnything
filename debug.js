@@ -1,5 +1,5 @@
-const config = require('./config.json')
+const globalconfig = require('./config.json')
 
 exports.log = (m) => {
-  if (config.debug) console.log('[DEBUG MESSAGE] ', m)
+  if (globalconfig.debug) console.log('[DEBUG MESSAGE] ', m)
 }

@@ -1,36 +1,5 @@
 {
   "twitch_channel":"spikegd",
-  "keys":{
-    "attack":"a",
-    "defend":"b",
-    "up":"up",
-    "down":"down",
-    "left":"left",
-    "right":"right",
-    "jump":"space",
-    "doublejump":"space+space"
-  },
-  "keyHolds": {
-    "forward":"w:2s",
-    "backward":"s:2s",
-    "holdforward":"w:on",
-    "releaseforward":"w:off"
-  },
-  "mouse": {
-    "aimup":"0px,200px",
-    "aimdown":"0px,-200px",
-    "aimleft":"-200px,0px",
-    "aimright":"200px,0px",
-    "aimsquare":"200px,0px+0px,200px+-200px,0px+0px,-200px"
-  },
-  "click": {
-    "shoot":"left",
-    "aim":"right",
-    "double":"left+left"
-  },
-  "clickHolds": {
-    "holdaim":"right:on",
-    "releaseaim":"right:off"
-  },
+  "use_config":"terraria",
   "debug":true
 }

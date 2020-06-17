@@ -10,5 +10,9 @@
     "jump":"space",
     "doublejump":"space+space"
   },
+  "keyHolds": {
+    "forward":"w:2s",
+    "backward":"s:2s"
+  },
   "debug":true
 }

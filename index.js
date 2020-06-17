@@ -49,12 +49,22 @@ client.on('message', (channel, tags, message) => {
     const movements = config.mouse[m].split(':')[0].split('+')
 
     asyncForEach(movements, async (p, i) => {
+      // Get x/y offsets
       const pos = parseMouse(movements[i])
+      // Current position to use for position calculation
       const curPos = robot.getMousePos()
       debug.log(`Moving mouse to ${curPos.x+pos.x}, ${curPos.y+pos.y} (${i+1}/${movements.length})`)
-      await robot.moveMouse(curPos.x+pos.x, curPos.y-pos.y)
+      await robot.moveMouseSmooth(curPos.x+pos.x, curPos.y-pos.y)
+      // Allow slight buffer between movements (if there is more than one)
       await waitFor(50)
       debug.log(`Done moving mouse!`)
+    })
+  } else if(config.click[m]) {
+    const clicks = config.click[m].split('+')
+
+    asyncForEach(clicks, async (c, i) => {
+      await robot.mouseClick(c)
+      debug.log(`Clicked ${c} mouse button (${i+1}/${clicks.length})`)
     })
   }
 })

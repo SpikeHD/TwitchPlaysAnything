@@ -7,16 +7,23 @@
   "keyHolds":{
     "right":"d:2s",
     "left":"a:2s",
-    "up":"w:2s"
+    "up":"w:2s",
+    "bigjump":"space:2s"
   },
   "mouse":{
     "mouseup":"0px,50px",
     "mousedown":"0px,-50px",
     "mouseleft":"-50px,0px",
-    "mouseright":"50px,0px"
+    "mouseright":"50px,0px",
+    
+    "bigmup":"0px,200px",
+    "bigmdown":"0px,-200px",
+    "bigmleft":"-200px,0px",
+    "bigmright":"200px,0px"
   },
   "click":{},
   "clickHolds":{
+    "mine":"left:15s",
     "attack":"left:100ms",
     "place":"right:100ms"
   }

@@ -45,6 +45,17 @@ client.on('message', (channel, tags, message) => {
       await robot.keyToggle(k, 'up')
       debug.log(`Let go of ${k} (${i+1}/${keys.length})`)
     })
+  } else if(config.mouse[m]) {
+    const movements = config.mouse[m].split(':')[0].split('+')
+
+    asyncForEach(movements, async (p, i) => {
+      const pos = parseMouse(movements[i])
+      var curPos = robot.getMousePos()
+      debug.log(`Moving mouse to ${curPos.x+pos.x}, ${curPos.y+pos.y} (${i+1}/${movements.length})`)
+      await robot.moveMouse(curPos.x+pos.x, curPos.y-pos.y)
+      await waitFor(50)
+      debug.log(`Done moving mouse!`)
+    })
   }
 })
 
@@ -57,7 +68,7 @@ async function asyncForEach(arr, callback) {
 }
 
 function parseTime(t) {
-  var num = parseInt(t.replace(/^\D+/g, ''))
+  var num = parseInt(t.match(/^[-+]?\d+$/g))
   var unit = t.split(num)[1]
 
   switch(unit) {
@@ -66,5 +77,15 @@ function parseTime(t) {
       return num * 1000
     case 'ms':
       return num
+  }
+}
+
+function parseMouse(m) {
+  var x = parseInt(m.split(',')[0].match(/^[-+]?\d+/g))
+  var y = parseInt(m.split(',')[1].match(/^[-+]?\d+/g))
+
+  return {
+    x:x,
+    y:y
   }
 }

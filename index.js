@@ -22,19 +22,25 @@ client.connect()
 client.on('message', (channel, tags, message) => {
   debug.log(`${tags.username}: ${message}`)
   const m = message.toLowerCase()
+  // Get corresponding key
   if(config.keys[m]) {
+    // Get each key in sequence
     const keys = config.keys[m].split('+')
+    // Press keys sequencially
     asyncForEach(keys, async (k, i) => {
       await robot.keyTap(k)
       debug.log(`Pressed ${k} (${i+1}/${keys.length})`)
     })
   } else if(config.keyHolds[m]) {
+    // Parse time into ms
     const time = parseTime(config.keyHolds[m].split(':')[1])
     const keys = config.keyHolds[m].split(':')[0].split('+')
 
+    // Hold down keys
     asyncForEach(keys, async (k, i) => {
       await robot.keyToggle(k, 'down')
       debug.log(`Holding down ${k} (${i+1}/${keys.length})`)
+      // Pause for amount of time
       await waitFor(time)
       await robot.keyToggle(k, 'up')
       debug.log(`Let go of ${k} (${i+1}/${keys.length})`)

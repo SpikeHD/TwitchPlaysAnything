@@ -10,6 +10,9 @@ A twitch-plays style program with extended functionality allowing for usage in a
 # Usage
 To start up the program, just run "start.bat". If you make any configuration changes, you have to restart the program.
 
+## Warning!
+There is no "kill switch"! Due to technical limitations, this program does not watch for keyboard input, which makes it pretty hard to implement a kill bind or something. I'm sure you can set AHK or something similar to kill it if you are worried. You shouldn't be worried as long as you don't give the twitch chat unnecessary power (alt-tab, alt-f4, etc.). The most that could happen is you may have to fight the mouse a little bit if you have it set to be used and the chat is trying to move it.
+
 # Configuration
 All of the base configuration is located in "config.json". In the `configs` folder you will find some basic key configuration files you can use (or edit using the reference below) by changing the `use_config` field to the name of the config file.
 

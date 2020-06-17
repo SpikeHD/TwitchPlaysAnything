@@ -12,7 +12,9 @@
   },
   "keyHolds": {
     "forward":"w:2s",
-    "backward":"s:2s"
+    "backward":"s:2s",
+    "holdforward":"w:on",
+    "releaseforward":"w:off"
   },
   "mouse": {
     "aimup":"0px,200px",
@@ -25,6 +27,10 @@
     "shoot":"left",
     "aim":"right",
     "double":"left+left"
+  },
+  "clickHolds": {
+    "holdaim":"right:on",
+    "releaseaim":"right:off"
   },
   "debug":true
 }

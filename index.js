@@ -38,12 +38,17 @@ client.on('message', (channel, tags, message) => {
 
     // Hold down keys
     asyncForEach(keys, async (k, i) => {
-      await robot.keyToggle(k, 'down')
-      debug.log(`Holding down ${k} (${i+1}/${keys.length})`)
-      // Pause for amount of time
-      await waitFor(time)
-      await robot.keyToggle(k, 'up')
-      debug.log(`Let go of ${k} (${i+1}/${keys.length})`)
+      // Pause for amount of time (or no time)
+      if(parseInt(time)) {
+        await robot.keyToggle(k, 'down')
+        debug.log(`Holding down ${k} (${i+1}/${keys.length})`)
+        await waitFor(time)
+        await robot.keyToggle(k, 'up')
+        debug.log(`Let go of ${k} (${i+1}/${keys.length})`)
+      } else {
+        await robot.keyToggle(k, time === 'on' ? 'down':'up')
+        debug.log(`Turning ${k} ${time} (${i+1}/${keys.length})`)
+      }
     })
   } else if(config.mouse[m]) {
     const movements = config.mouse[m].split(':')[0].split('+')
@@ -66,6 +71,22 @@ client.on('message', (channel, tags, message) => {
       await robot.mouseClick(c)
       debug.log(`Clicked ${c} mouse button (${i+1}/${clicks.length})`)
     })
+  } else if(config.clickHolds[m]) {
+    const time = parseTime(config.clickHolds[m].split(':')[1])
+    const clicks = config.clickHolds[m].split(':')[0].split('+')
+
+    asyncForEach(clicks, async (c, i) => {
+      if(parseInt(time)) {
+        await robot.mouseToggle('down', c)
+        debug.log(`Holding down ${c} mouse button (${i+1}/${keys.length})`)
+        await waitFor(time)
+        await robot.mouseToggle('up', c)
+        debug.log(`Let go of ${c} mouse button (${i+1}/${keys.length})`)
+      } else {
+        debug.log(`Turning ${c} mouse button ${time} (${i+1}/${clicks.length})`)
+        await robot.mouseToggle(time === 'on' ? 'down':'up', c)
+      }
+    })
   }
 })
 
@@ -78,15 +99,21 @@ async function asyncForEach(arr, callback) {
 }
 
 function parseTime(t) {
-  const num = parseInt(t.match(/^[-+]?\d+$/g))
-  const unit = t.split(num)[1]
+  const isInfinite = t === 'on' || t === 'off'
 
-  switch(unit) {
-    default:
-    case 's':
-      return num * 1000
-    case 'ms':
-      return num
+  if(!isInfinite) {
+    const num = parseInt(t.match(/^[-+]?\d+$/g))
+    const unit = t.split(num)[1]
+  
+    switch(unit) {
+      default:
+      case 's':
+        return num * 1000
+      case 'ms':
+        return num
+    }
+  } else {
+    return t
   }
 }
 

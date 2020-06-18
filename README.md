@@ -102,3 +102,7 @@ Having trouble with something? Enabling this will show each chat message, and wh
 
 # Feature Requests
 Want to see something added? Put it in the issues section!
+
+# TODO
+1. Even more features
+2. Electron UI maybe?

@@ -35,6 +35,10 @@ Examples:
 "doublejump":"space+space"
 // Will press "space" twice when someone sends "doublejump"
 ```
+```js
+"tabout":"alt-tab"
+// Will alt-tab when someone sends "tabout"
+```
 
 ### keyHolds
 Works the exact same as `keys`, except you can apply a time for the key to be held (or for it to be toggled on/off).
@@ -55,6 +59,10 @@ Examples:
 ```js
 "disableforward":"w:off"
 // Lets go of w when someone sends "disableforward"
+```
+```js
+"pasteabunch":"ctrl-v:5s"
+// Will paste for 5 seconds when someone sends "pasteabunch"
 ```
 ### mouse
 Allows for the movement of the mouse. Uses x/y coordinate *offsets*, which means you aren't inputting a position, but where it should move from it's current position. You can also string movements together with `+`

@@ -38,7 +38,8 @@ function doAction(m) {
     const keys = parseInt(m) && keyconf.enable_num ? [parseInt(m)]:keyconf.keys[m].split('+')
     // Press keys sequencially
     asyncForEach(keys, async (k, i) => {
-      await robot.keyTap(k)
+      const mods = k.split('-')
+      await robot.keyTap(mods.splice(mods.length-1, 1), mods)
       debug.log(`Pressed ${k} (${i+1}/${keys.length})`)
     })
   } else if(keyconf.keyHolds[m]) {
@@ -48,15 +49,16 @@ function doAction(m) {
 
     // Hold down keys
     asyncForEach(keys, async (k, i) => {
+      const mods = k.split('-')
       // Pause for amount of time (or no time)
       if(parseInt(time)) {
-        await robot.keyToggle(k, 'down')
+        await robot.keyToggle(mods.splice(mods.length-1, 1), 'down', mods)
         debug.log(`Holding down ${k} (${i+1}/${keys.length})`)
         await waitFor(time)
-        await robot.keyToggle(k, 'up')
+        await robot.keyToggle(mods.splice(mods.length-1, 1), 'up', mods)
         debug.log(`Let go of ${k} (${i+1}/${keys.length})`)
       } else {
-        await robot.keyToggle(k, time === 'on' ? 'down':'up')
+        await robot.keyToggle(mods.splice(mods.length-1, 1), time === 'on' ? 'down':'up', mods)
         debug.log(`Turning ${k} ${time} (${i+1}/${keys.length})`)
       }
     })

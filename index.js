@@ -5,6 +5,10 @@
  * I just want to say that I made my own, and maybe I can use it at some
  * point for myself too.
  */
+const notActions = [
+  'enable_num',
+  'enable_random'
+]
 const globalconfig = require('./config.json')
 const keyconf = require(`./configs/${globalconfig.use_config}.json`)
 const debug = require('./debug')
@@ -24,7 +28,10 @@ client.connect()
 
 client.on('message', (channel, tags, message) => {
   debug.log(`${tags.username}: ${message}`)
-  const m = message.toLowerCase()
+  doAction(message.toLowerCase())
+})
+
+function doAction(m) {
   // Get corresponding key
   if(keyconf.keys[m] || parseInt(m)) {
     // Get each key in sequence
@@ -90,10 +97,21 @@ client.on('message', (channel, tags, message) => {
         await robot.mouseToggle(time === 'on' ? 'down':'up', c)
       }
     })
+  } else if (keyconf.enable_random && m === 'random') {
+    // Get only action keys
+    const keys = Object.keys(keyconf).filter(k => keyconf[k] != {} && !notActions.includes(k))
+    const values = Object.keys(keyconf[keys[rand(0, keys.length)]])
+    const value = values[rand(0, values.length)]
+
+    doAction(value)
   }
-})
+}
 
 const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
+
+function rand(min, max) {
+  return Math.floor(Math.random() * (max-min) + min)
+}
 
 async function asyncForEach(arr, callback) {
   for (var i = 0; i < arr.length; i++) {

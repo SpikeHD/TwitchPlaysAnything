@@ -1,5 +1,6 @@
 {
   "enable_num":true,
+  "enable_random":true,
   "keys":{
     "jump":"space",
     "down":"s"

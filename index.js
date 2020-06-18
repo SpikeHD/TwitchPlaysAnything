@@ -98,9 +98,11 @@ function doAction(m) {
       }
     })
   } else if (keyconf.enable_random && m === 'random') {
-    // Get only action keys
+    // Get only action keys using a filter
     const keys = Object.keys(keyconf).filter(k => keyconf[k] != {} && !notActions.includes(k))
+    // Do some nonsense and get the values of a random key
     const values = Object.keys(keyconf[keys[rand(0, keys.length)]])
+    // Finally get a random action to do
     const value = values[rand(0, values.length)]
 
     doAction(value)

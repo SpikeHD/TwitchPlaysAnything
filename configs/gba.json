@@ -1,0 +1,20 @@
+{
+  "README":"You'll have to set the keybinds in your GBA emulator to match, OR change the binds here",
+  "enable_num":false,
+  "keys":{
+    "a":"a",
+    "b":"b",
+    "start":"q",
+    "r":"r",
+    "l":"l"
+  },
+  "keyHolds":{
+    "up":"up",
+    "down":"down",
+    "left":"left",
+    "right":"right"
+  },
+  "mouse":{},
+  "click":{},
+  "clickHolds":{}
+}

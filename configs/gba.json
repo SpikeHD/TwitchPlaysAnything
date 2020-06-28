@@ -9,10 +9,10 @@
     "l":"l"
   },
   "keyHolds":{
-    "up":"up",
-    "down":"down",
-    "left":"left",
-    "right":"right"
+    "up":"up:500ms",
+    "down":"down:500ms",
+    "left":"left:500ms",
+    "right":"right:500ms"
   },
   "mouse":{},
   "click":{},

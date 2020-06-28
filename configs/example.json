@@ -1,4 +1,5 @@
 {
+  "max_combo":3,
   "keys":{
     "attack":"a",
     "defend":"b",

@@ -7,7 +7,8 @@
  */
 const notActions = [
   'enable_num',
-  'enable_random'
+  'enable_random',
+  'max_combo'
 ]
 const globalconfig = require('./config.json')
 const keyconf = require(`./configs/${globalconfig.use_config}.json`)
@@ -28,7 +29,15 @@ client.connect()
 
 client.on('message', (channel, tags, message) => {
   debug.log(`${tags.username}: ${message}`)
-  doAction(message.toLowerCase())
+  // Check for a combo of multiple actions
+  if(message.includes('+')) {
+    // If the keyconf doesn't have a max combo, play it safe and set it to one
+    if(!keyconf.max_combo) keyconf.max_combo = 1
+    const commands = message.toLowerCase().split('+').slice(0, keyconf.max_combo)
+    asyncForEach(commands, async c => doAction(c))
+  } else {
+    doAction(message.toLowerCase())
+  }
 })
 
 function doAction(m) {
@@ -52,13 +61,15 @@ function doAction(m) {
       const mods = k.split('-')
       // Pause for amount of time (or no time)
       if(parseInt(time)) {
-        await robot.keyToggle(mods.splice(mods.length-1, 1), 'down', mods)
+        const key = mods.splice(mods.length-1, 1)
+        await robot.keyToggle(key, 'down', mods)
         debug.log(`Holding down ${k} (${i+1}/${keys.length})`)
         await waitFor(time)
-        await robot.keyToggle(mods.splice(mods.length-1, 1), 'up', mods)
+        await robot.keyToggle(key, 'up', mods)
         debug.log(`Let go of ${k} (${i+1}/${keys.length})`)
       } else {
-        await robot.keyToggle(mods.splice(mods.length-1, 1), time === 'on' ? 'down':'up', mods)
+        const key = mods.splice(mods.length-1, 1)
+        await robot.keyToggle(key, time === 'on' ? 'down':'up', mods)
         debug.log(`Turning ${k} ${time} (${i+1}/${keys.length})`)
       }
     })

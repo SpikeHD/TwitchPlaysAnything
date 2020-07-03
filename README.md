@@ -36,7 +36,7 @@ Set this value to true to allow for the chat to type "random" and have one of th
 Set this value to true to enable the number keys. Useful for games that require them since you don't have to add them manually. Should override predefined number actions, so disable this if you have the number keys set to something else.
 
 ### max_combo
-If you want users to be able to send more than one command per message, you can limit the amount they can send by setting this value. If you do not set this value, it should automatically set to 1. If a user sends a combination larger than the allowed, the only the commands up to the limit are executed.
+If you want users to be able to send more than one command per message, you can limit the amount they can send by setting this value. If you do not set this value, it should automatically set to 1. If a user sends a combination larger than the allowed, then only the commands up to the limit are executed.
 
 ### keys
 You can probably tell by the examples, but these are formatted in `key:value` pairs.

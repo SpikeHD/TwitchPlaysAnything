@@ -69,7 +69,7 @@ function doAction(m, opt = null) {
     let length = keyconf.keyHolds[m].split(':')[1]
     let time
 
-    if (opt) {
+    if (opt && length.includes('any')) {
       let lim = parseTime(length.split('any')[1])
       let proposed = parseTime(opt)
 

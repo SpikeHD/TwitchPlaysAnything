@@ -58,7 +58,7 @@ Examples:
 ```
 
 ### keyHolds
-Works the exact same as `keys`, except you can apply a time for the key to be held (or for it to be toggled on/off).
+Works the exact same as `keys`, except you can apply a time for the key to be held, or for it to be toggled on/off, or for a user-chosen length of time.
 
 Examples:
 ```js
@@ -76,6 +76,11 @@ Examples:
 ```js
 "disableforward":"w:off"
 // Lets go of w when someone sends "disableforward"
+```
+```js
+"customhold":"h:any10s"
+// Allows user to type "customhold [time]" to hold the button for a custom amount of time,
+// eg. "customhold 2s" or "customhold 7s"
 ```
 ```js
 "pasteabunch":"ctrl-v:5s"
@@ -121,6 +126,11 @@ Examples:
 ```js
 "disablelmb":"left:off"
 // Disables left mouse button when someone sends "disablelmb"
+```
+```js
+"shootcustom":"left:any10s"
+// Allows users to type a custom amount of time to hold a mouse click,
+// eg. "shootcustom 7s" or "shootcustom 3s"
 ```
 # Feature Requests
 Want to see something added? Put it in the issues section!

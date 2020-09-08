@@ -121,7 +121,20 @@ function doAction(m, opt = null) {
       debug.log(`Clicked ${c} mouse button (${i+1}/${clicks.length})`)
     })
   } else if(keyconf.clickHolds[m]) {
-    const time = parseTime(keyconf.clickHolds[m].split(':')[1])
+    let length = keyconf.clickHolds[m].split(':')[1]
+    let time
+
+    if (opt) {
+      let lim = parseTime(length.split('any')[1])
+      let proposed = parseTime(opt)
+
+      if (proposed > lim) return
+      else time = proposed
+    } else time = parseTime(length)
+
+    if (!time && length.includes('any')) time = parseTime(length.replace('any', ''))/2
+
+
     const clicks = keyconf.clickHolds[m].split(':')[0].split('+')
 
     asyncForEach(clicks, async (c, i) => {

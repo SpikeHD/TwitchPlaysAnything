@@ -20,23 +20,41 @@ Feel free to create your own key configurations! If you made one that you think 
 
 ### channel
 Set this as the name of the Twitch channel to watch the chat of.
+```js
+"channel":"ClintStevens"
+```
 
 ### use_config
 Set this as the name of the config file (without the extension) to load that key config on startup
+```js
+"use_config":"tester"
+```
 
 ### debug
 If something isn't working, enable this to see what the problem could be. If you can't figure it out, feel free to make an issue
+```js
+"debug":true
+```
 
 # Key config settings
 
 ### enable_random
 Set this value to true to allow for the chat to type "random" and have one of the predefined controls selected.
+```js
+"enable_random":true
+```
 
 ### enable_num
 Set this value to true to enable the number keys. Useful for games that require them since you don't have to add them manually. Should override predefined number actions, so disable this if you have the number keys set to something else.
+```js
+"enable_num":true
+```
 
 ### max_combo
 If you want users to be able to send more than one command per message, you can limit the amount they can send by setting this value. If you do not set this value, it should automatically set to 1. If a user sends a combination larger than the allowed, then only the commands up to the limit are executed.
+```js
+"max_combo":3
+```
 
 ### keys
 You can probably tell by the examples, but these are formatted in `key:value` pairs.

@@ -29,18 +29,32 @@ client.connect()
 
 client.on('message', (channel, tags, message) => {
   debug.log(`${tags.username}: ${message}`)
+
   // Check for a combo of multiple actions
   if(message.includes('+')) {
     // If the keyconf doesn't have a max combo, play it safe and set it to one
     if(!keyconf.max_combo) keyconf.max_combo = 1
     const commands = message.toLowerCase().split('+').slice(0, keyconf.max_combo)
-    asyncForEach(commands, async c => doAction(c))
+    asyncForEach(commands, async c => {
+      let opt = c.split(' ')[1]
+      if (opt) {
+        doAction(c.split(' ')[0], opt)
+      } else {
+        doAction(c)
+      }
+    })
   } else {
-    doAction(message.toLowerCase())
+    let opt = message.toLowerCase().split(' ')[1]
+
+    if(opt) {
+      doAction(message.toLowerCase().split(' ')[0], opt)
+    } else {
+      doAction(message.toLowerCase())
+    }
   }
 })
 
-function doAction(m) {
+function doAction(m, opt = null) {
   // Get corresponding key
   if(keyconf.keys[m] || parseInt(m)) {
     // Get each key in sequence
@@ -52,8 +66,20 @@ function doAction(m) {
       debug.log(`Pressed ${k} (${i+1}/${keys.length})`)
     })
   } else if(keyconf.keyHolds[m]) {
+    let length = keyconf.keyHolds[m].split(':')[1]
+    let time
+
+    if (opt) {
+      let lim = parseTime(length.split('any')[1])
+      let proposed = parseTime(opt)
+
+      if (proposed > lim) return
+      else time = proposed
+    } else time = parseTime(length)
+
+    if (!time && length.includes('any')) time = parseTime(length.replace('any', ''))/2
+
     // Parse time into ms
-    const time = parseTime(keyconf.keyHolds[m].split(':')[1])
     const keys = keyconf.keyHolds[m].split(':')[0].split('+')
 
     // Hold down keys

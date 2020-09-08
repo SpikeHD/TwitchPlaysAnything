@@ -56,7 +56,7 @@ client.on('message', (channel, tags, message) => {
 
 function doAction(m, opt = null) {
   // Get corresponding key
-  if(keyconf.keys[m] || parseInt(m)) {
+  if(keyconf.keys[m] || m.match(/^\d+$/)) {
     // Get each key in sequence
     const keys = parseInt(m) && keyconf.enable_num ? [parseInt(m)]:keyconf.keys[m].split('+')
     // Press keys sequencially

@@ -77,7 +77,7 @@ function doAction(m, opt = null) {
       else time = proposed
     } else time = parseTime(length)
 
-    if (!time && length.includes('any')) time = parseTime(length.replace('any', ''))/2
+    if (!time && length.includes('any')) time = 500
 
     // Parse time into ms
     const keys = keyconf.keyHolds[m].split(':')[0].split('+')

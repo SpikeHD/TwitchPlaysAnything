@@ -156,3 +156,4 @@ Want to see something added? Put it in the issues section!
 # TODO
 1. Even more features
 2. Electron UI maybe?
+3. Update to https://github.com/nut-tree/nut.js
